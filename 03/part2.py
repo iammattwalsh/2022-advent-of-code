@@ -8,11 +8,13 @@ with open('input.txt', 'r') as f:
 lines = [line.strip('\n') for line in lines]
 
 total = 0
+i = 0
 
-for line in lines:
-    for char in line[0 : len(line) // 2]:
-        if char in line[len(line) // 2 :]:
+while i < len(lines):
+    for char in lines[i]:
+        if char in lines[i + 1] and char in lines[i + 2]:
             total += priority.index(char)
             break
+    i += 3
 
 print(total)
