@@ -3,7 +3,7 @@ with open('input.txt', 'r') as f:
 
 current_dir_list = []
 dir_sizes = {}
-answer = 0
+total_file_size = 0
 
 def add_sizes(keys, size):
     for key in keys:
@@ -41,9 +41,16 @@ for line in lines:
     # if file
     elif split_line[0] != 'dir':
         add_sizes(full_path_for_each(), int(split_line[0]))
+        total_file_size += int(split_line[0])
+
+total_disk_size = 70000000
+size_needed = 40000000
+size_to_clear = total_file_size - size_needed
+best_candidate_size = total_disk_size - total_file_size
 
 for dir in dir_sizes:
-    if dir_sizes[dir] <= 100000:
-        answer += dir_sizes[dir]
+    dir_size = dir_sizes[dir]
+    if dir_size >= size_to_clear and dir_size < best_candidate_size:
+        best_candidate_size = dir_size
 
-print(answer)
+print(best_candidate_size)
