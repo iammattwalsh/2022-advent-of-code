@@ -28,7 +28,6 @@ width = abs(g_r) + abs(g_l) + 1
 pos_head = {'x': width - g_r - 1, 'y': height + g_d - 1}
 pos_tail = [{'x': width - g_r - 1, 'y': height + g_d - 1} for _ in range(9)]
 grid = [['.'] * width for row in range(height)]
-grid_tail = [['.'] * width for row in range(height)]
 
 for inst in lines:
     dir = inst[0]
@@ -66,14 +65,6 @@ for inst in lines:
             
             prev_knot = {'x': knot['x'], 'y': knot['y'], 'prev_x': knot['prev_x'], 'prev_y': knot['prev_y']}
 
-            if grid[pos_head['prev_y']][pos_head['prev_x']] == 'H':
-                grid[pos_head['prev_y']][pos_head['prev_x']] = '.'
-            grid[pos_head['y']][pos_head['x']] = 'H'
-            if grid[pos_tail[i]['prev_y']][pos_tail[i]['prev_x']] == (str(i + 1)):
-                grid[pos_tail[i]['prev_y']][pos_tail[i]['prev_x']] = '.'
-            if grid[pos_tail[i]['y']][pos_tail[i]['x']] == '.':
-                grid[pos_tail[i]['y']][pos_tail[i]['x']] = str(i + 1)
+        grid[pos_tail[-1]['y']][pos_tail[-1]['x']] = 'T'
 
-        grid_tail[pos_tail[-1]['y']][pos_tail[-1]['x']] = 'T'
-
-print([cell for row in grid_tail for cell in row].count('T'))
+print([cell for row in grid for cell in row].count('T'))
