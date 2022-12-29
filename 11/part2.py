@@ -6,7 +6,7 @@ class Monkey:
         self.test = test
         self.num_inspected = 0
         self.list = monkey_list
-
+    
     def inspect(self) -> None:
         for item in self.items:
             match self.operation.val:
@@ -19,7 +19,7 @@ class Monkey:
                     item.worry += val
                 case '*':
                     item.worry *= val
-            item.worry //= 3
+            item.worry %= super_mod
             self.num_inspected += 1
 
     def throw(self) -> None:
@@ -103,8 +103,11 @@ if __name__ == '__main__':
             )
             monkeys.append(new_monkey)
 
-    num_loops = 20
+    num_loops = 10000
+    super_mod = 1
 
+    for monkey in monkeys:
+        super_mod *= monkey.test.val
     for _ in range(num_loops):
         for monkey in monkeys:
             monkey.take_turn()
